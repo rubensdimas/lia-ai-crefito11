@@ -31,12 +31,13 @@
 - **Teste**: [x] Processar um PDF de 1 página e validar a criação de vetores no DB (Logica verificada, falha apenas por quota de API).
 
 ### [2.2] Serviço de Busca Semântica (Retrieval)
-- **Subtask**: Criar função SQL (RPC) no Postgres para busca de similaridade filtrando por `status = 'VIGENTE'`.
-- **Teste**: Chamar a função com um vetor de teste e verificar o ranking de resultados.
+- **Subtask**: [x] Criar função SQL (RPC) no Postgres para busca de similaridade filtrando por `status = 'VIGENTE'`.
+- **Teste**: [x] Chamar a função com um vetor de teste e verificar o ranking de resultados (Script `test-search.ts`).
 
 ### [2.3] Orquestrador de Resposta (Augmentation)
-- **Subtask**: Integrar LangChain.js para montar o prompt final e chamar o GPT-4o (Temp 0).
-- **Teste**: Enviar query e validar se a resposta cita a fonte correta.
+- **Subtask**: [x] Integrar LangChain.js para montar o prompt final e chamar o GPT-4o (Temp 0).
+- **Subtask**: [x] Implementar persistência de logs de auditoria na tabela `lia_audit_logs`.
+- **Teste**: [x] Enviar query e validar se a resposta e o log de auditoria foram criados (Script `test-rag.ts`).
 
 ---
 
@@ -44,25 +45,28 @@
 *Foco: Exposição do serviço para canais externos.*
 
 ### [3.1] Endpoint de Chat (Public API)
-- **Subtask**: Criar rota `POST /api/v1/chat` com suporte a Streaming (SSE).
-- **Teste**: Requisição via Curl validando o formato do JSON de resposta.
+- **Subtask**: [x] Criar rota `POST /api/v1/chat` com suporte a Streaming (SSE).
+- **Subtask**: [x] Implementar validação de `x-api-key` para segurança do endpoint público.
+- **Teste**: [x] Requisição via Curl validando o streaming e bloqueio sem API Key.
 
 ### [3.2] Middleware de Autenticação & Chaves
-- **Subtask**: Implementar validação de API Keys para serviços externos (ex: Bot WhatsApp).
-- **Teste**: Requisição sem Header `x-api-key` deve retornar 401.
+- **Subtask**: [x] Implementar validação de API Keys para serviços administrativos e ingestão.
+- **Teste**: [x] Requisição sem Header `x-api-key` deve retornar 401 nas rotas de admin.
 
 ---
 
-## Fase 4: Admin & Governança (Dashboard)
+## Fase 4: Admin & Governança (Dashboard) [COMPLETO]
 *Foco: Interface de gestão.*
 
 ### [4.1] Dashboard de Gestão de Documentos
-- **Subtask**: Listagem de documentos indexados e funcionalidade de upload.
-- **Teste**: Fazer upload de um PDF via interface e verificar se aparece na lista com status 'PROCESSANDO'.
+- **Subtask**: [x] Listagem de documentos indexados e funcionalidade de upload.
+- **Subtask**: [x] Integração com API de ingestão protegida.
+- **Teste**: [x] Fazer upload de um PDF via interface e verificar se aparece na lista (Verificado via browser).
 
 ### [4.2] Painel de Auditoria de Logs
-- **Subtask**: Interface simples para visualizar as interações da IA e o consumo de tokens.
-- **Teste**: Verificar se a última pergunta feita via API aparece no topo do log.
+- **Subtask**: [x] Interface dinâmica para visualizar as interações da IA em tempo real.
+- **Subtask**: [x] Conexão do Dashboard com dados reais do Supabase (Métricas de uso).
+- **Teste**: [x] Verificar se a última pergunta feita via API aparece no topo do dashboard (Verificado via script `check-logs.ts`).
 
 ---
 
