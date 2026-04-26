@@ -6,8 +6,9 @@
  * Syncs Gemini's /rewind command with AIOX state.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
 
 /**
  * Sanitize sessionId to prevent path traversal

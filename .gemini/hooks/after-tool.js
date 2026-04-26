@@ -6,8 +6,9 @@
  * Executes after tool completion for audit logging.
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
 
 async function afterTool() {
   const input = process.argv[2] ? JSON.parse(process.argv[2]) : {};
